@@ -1,0 +1,42 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+canvas {
+  background-color: #EEEEEE;
+  display: block;
+  margin: auto;
+  width: 80%;
+}
+
+.navBar {
+  padding: 1%;
+  background-color: #229954;
+  border-bottom: 2px solid black;
+  margin-bottom: 1%;
+}
+
+button {
+  padding: 1%;
+  margin: 1%;
+  left: 140px;
+  position: absolute;
+}
+
+canvas:-webkit-full-screen {
+  width: 100% !important;
+  height: 100% !important;
+}
+canvas:-moz-full-screen {
+  width: 100% !important;
+  height: 100% !important;
+}
+canvas:-ms-fullscreen {
+  width: 100% !important;
+  height: 100% !important;
+}
+canvas:fullscreen {
+  width: 100% !important;
+  height: 100% !important;
+}
