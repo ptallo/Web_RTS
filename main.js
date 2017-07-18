@@ -73,7 +73,7 @@ class SelectionCursor{
   }
   static draw(x,y){
     if(this.isClicked == true){
-      ctx.strokeRect(this.x,this.y,(x - this.x)*.95,(y - this.y)*.95);
+      ctx.strokeRect(this.x,this.y,(x - this.x),(y - this.y));
     }
   }
   static setCoord(x,y){
@@ -136,9 +136,9 @@ $('#myCanvas').mousedown(function(e){
   var rect = canvas.getBoundingClientRect();
   mouseSelX = e.clientX - rect.left;
   mouseSelY = e.clientY - rect.top;
-  mouseSelX = Math.floor(mouseSelX);
-  mouseSelY = Math.floor(mouseSelY);
-  $('p').text(mouseSelX + ", " + mouseSelY);
+  mouseSelX = (mouseSelX / rect.width) * canvas.width;
+  mouseSelY = (mouseSelY / rect.height) * canvas.height;
+  var coords = getMouseCoords(canvas,e);
   if(e.buttons == 1) {
     //Handle the left mouseclick
     selectedUnits = [];
@@ -153,8 +153,11 @@ $('#myCanvas').mousedown(function(e){
 });
 
 $('#myCanvas').on('mousemove',function(e){
-  mouseX = (e.clientX - canvas.offsetLeft);
-  mouseY = (e.clientY - canvas.offsetTop);
+  var rect = canvas.getBoundingClientRect();
+  mouseX = e.clientX - rect.left;
+  mouseY = e.clientY - rect.top;
+  mouseX = (mouseX / rect.width) * canvas.width;
+  mouseY = (mouseY / rect.height) * canvas.height;
 });
 
 $('#myCanvas').on('mouseup',function(e){
