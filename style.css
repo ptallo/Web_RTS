@@ -24,19 +24,22 @@ button {
   position: absolute;
 }
 
+.test {
+  position: absolute;
+  left: 300px;
+  margin: 1%;
+  padding: 1%;
+}
+
 canvas:-webkit-full-screen {
   width: 100% !important;
-  height: 100% !important;
 }
 canvas:-moz-full-screen {
   width: 100% !important;
-  height: 100% !important;
 }
 canvas:-ms-fullscreen {
   width: 100% !important;
-  height: 100% !important;
 }
 canvas:fullscreen {
   width: 100% !important;
-  height: 100% !important;
 }
