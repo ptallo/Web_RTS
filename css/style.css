@@ -7,7 +7,7 @@ canvas {
   background-color: #EEEEEE;
   display: block;
   margin: auto;
-  width: 80%;
+  width: 60%;
 }
 
 .navBar {
@@ -24,7 +24,7 @@ button {
   position: absolute;
 }
 
-.test {
+p {
   position: absolute;
   left: 300px;
   margin: 1%;

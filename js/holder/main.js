@@ -169,6 +169,7 @@ $('#myCanvas').bind("contextmenu",function(e){
   e.preventDefault();
 });
 
+
 function init(){
   //Init function used to initialize game on startup
   var u1 = new Unit(canvas.width/2 - 50,canvas.height/2 - 50,100,100);
