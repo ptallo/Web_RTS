@@ -6,7 +6,7 @@ class Unit{
     this.height = height;
     this.destX;
     this.destY;
-    this.moveSpeed = 3;
+    this.moveSpeed = 5;
     this.color = "orange";
     this.selected = false;
     allUnits.push(this);
@@ -30,33 +30,38 @@ class Unit{
   }
 
   move(){
-    //if the set destination is not the same as the position of the element then
-    //this should move them towards it if called upon every update loop
+    var hypotenuse = Math.sqrt(Math.pow((this.x - this.destX),2) + Math.pow((this.y - this.destY),2));
+    var xSide = Math.abs(this.destX - this.x);
+    var angle = Math.acos(xSide/hypotenuse);
+
+    var moveX = this.moveSpeed * Math.cos(angle);
+    var moveY = this.moveSpeed * Math.sin(angle);
+
     if (this.x > this.destX){
       if((this.x - this.destX) > this.moveSpeed){
-        this.x = this.x - this.moveSpeed;
+        this.x = this.x - moveX;
       } else {
-        this.x = this.destX
+        this.x = this.destX;
       }
     } else if(this.x < this.destX){
       if((this.x + this.destX) > this.moveSpeed){
-        this.x = this.x + this.moveSpeed;
+        this.x = this.x + moveX;
       } else {
-        this.x = this.destX
+        this.x = this.destX;
       }
     }
 
     if (this.y > this.destY){
       if((this.y - this.destY) > this.moveSpeed){
-        this.y = this.y - this.moveSpeed;
+        this.y = this.y - moveY;
       } else {
-        this.y = this.destY
+        this.y = this.destY;
       }
     } else if(this.y < this.destY){
       if((this.y + this.destY) > this.moveSpeed){
-        this.y = this.y + this.moveSpeed;
+        this.y = this.y + moveY;
       } else {
-        this.y = this.destY
+        this.y = this.destY;
       }
     }
   }

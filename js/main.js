@@ -58,6 +58,13 @@ function handleUnitSelection(){
   $('.test2').text(selectedUnits.length)
 }
 
+function handleUnitUpdate(){
+  for (i=0;i<allUnits.length;i++){
+    allUnits[i].move();
+    allUnits[i].draw();
+  }
+}
+
 function init(){
   var u1 = new Unit(200,200,100,100);
 }
@@ -65,10 +72,7 @@ function init(){
 function main(){
   $('.test').text('main active');
   ctx.clearRect(0,0,canvas.width,canvas.height);
-  for (i=0;i<allUnits.length;i++){
-    allUnits[i].move();
-    allUnits[i].draw();
-  }
+  handleUnitUpdate()
   SelectionCursor.draw(mouseX,mouseY);
   requestAnimationFrame(main);
 }
