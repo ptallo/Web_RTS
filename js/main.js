@@ -48,14 +48,21 @@ $('#myCanvas').bind("contextmenu",function(e){
 });
 
 function handleUnitSelection(){
+  var mouseRect = { x: ((mouseX < mouseSelX) ? mouseX : mouseSelX),
+                    y: ((mouseY < mouseSelY) ? mouseY : mouseSelY),
+                    width: Math.abs(mouseX - mouseSelX),
+                    height: Math.abs(mouseY - mouseSelY)};
+
   for(i=0; i<allUnits.length;i++){
-    if( (allUnits[i].x < mouseSelX && allUnits[i].x > mouseX) || (allUnits[i].x < mouseX && allUnits[i].x > mouseSelX)
-        && (allUnits[i].y < mouseSelY && allUnits[i].y > mouseY) || (allUnits[i].y < mouseY && allUnits[i].y > mouseSelY)){
+    if( mouseRect.x < allUnits[i].x + allUnits[i].width &&
+        mouseRect.x + mouseRect.width > allUnits[i].x &&
+        mouseRect.y < allUnits[i].y + allUnits[i].height &&
+        mouseRect.y + mouseRect.height > allUnits[i].y){
           selectedUnits.push(allUnits[i]);
           allUnits[i].selected = true;
-    }
+        }
   }
-  $('.test2').text(selectedUnits.length)
+  $('.test2').text(mouseRect.x.toString() + ", " + mouseRect.y.toString());
 }
 
 function handleUnitUpdate(){
@@ -67,6 +74,7 @@ function handleUnitUpdate(){
 
 function init(){
   var u1 = new Unit(200,200,100,100);
+  var u2 = new Unit(400,400,20,250);
 }
 
 function main(){

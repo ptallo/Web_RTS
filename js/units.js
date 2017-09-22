@@ -19,7 +19,7 @@ class Unit{
       this.color = "orange";
     }
     ctx.beginPath();
-    ctx.rect(this.x-(this.width/2),this.y-(this.height/2),this.width,this.height);
+    ctx.rect(this.x,this.y,this.width,this.height);
     ctx.fillStyle = this.color;
   	ctx.fill();
   }
