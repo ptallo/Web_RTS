@@ -54,15 +54,8 @@ function handleUnitSelection(){
                     height: Math.abs(mouseY - mouseSelY)};
 
   for(i=0; i<allUnits.length;i++){
-    if( mouseRect.x < allUnits[i].x + allUnits[i].width &&
-        mouseRect.x + mouseRect.width > allUnits[i].x &&
-        mouseRect.y < allUnits[i].y + allUnits[i].height &&
-        mouseRect.y + mouseRect.height > allUnits[i].y){
-          selectedUnits.push(allUnits[i]);
-          allUnits[i].selected = true;
-        }
+    allUnits[i].checkSelectionCollision(mouseRect);
   }
-  $('.test2').text(mouseRect.x.toString() + ", " + mouseRect.y.toString());
 }
 
 function handleUnitUpdate(){
@@ -74,7 +67,7 @@ function handleUnitUpdate(){
 
 function init(){
   var u1 = new Unit(200,200,100,100);
-  var u2 = new Unit(400,400,20,250);
+  var u2 = new Unit(400,400,20,200);
 }
 
 function main(){

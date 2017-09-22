@@ -4,6 +4,7 @@ class Unit{
     this.y = y;
     this.width = width;
     this.height = height;
+    this.rect = {x: this.x, y: this.y, width: this.width, height: this.height};
     this.destX;
     this.destY;
     this.moveSpeed = 5;
@@ -13,11 +14,6 @@ class Unit{
   }
 
   draw(){
-    if(this.selected == true){
-      this.color = "lightblue";
-    } else {
-      this.color = "orange";
-    }
     ctx.beginPath();
     ctx.rect(this.x,this.y,this.width,this.height);
     ctx.fillStyle = this.color;
@@ -25,8 +21,28 @@ class Unit{
   }
 
   setMoveDest(x,y){
-    this.destX = x;
-    this.destY = y;
+    this.destX = x - (this.width/2);
+    this.destY = y - (this.height/2);
+  }
+
+  checkSelectionCollision(rect){
+    if( rect.x < allUnits[i].x + allUnits[i].width &&
+        rect.x + rect.width > allUnits[i].x &&
+        rect.y < allUnits[i].y + allUnits[i].height &&
+        rect.y + rect.height > allUnits[i].y){
+            selectedUnits.push(this);
+            this.selected = true;
+    }
+  }
+
+  checkCollision(rect){
+    if( rect.x < allUnits[i].x + allUnits[i].width &&
+        rect.x + rect.width > allUnits[i].x &&
+        rect.y < allUnits[i].y + allUnits[i].height &&
+        rect.y + rect.height > allUnits[i].y){
+            return true;
+    }
+    return false;
   }
 
   move(){
@@ -64,6 +80,7 @@ class Unit{
         this.y = this.destY;
       }
     }
+
   }
 
   getCoords(){
