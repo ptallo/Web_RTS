@@ -53,7 +53,7 @@ function handleUnitSelection(){
                     height: Math.abs(mouseY - mouseSelY)};
 
   for(i=0; i<allUnits.length;i++){
-    allUnits[i].checkSelectionCollision(mouseRect);
+    allUnits[i].checkSelection(mouseRect);
   }
 }
 

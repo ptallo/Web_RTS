@@ -25,26 +25,6 @@ class Unit{
     this.destY = y - (this.height/2);
   }
 
-  checkSelectionCollision(rect){
-    if( rect.x < allUnits[i].x + allUnits[i].width &&
-        rect.x + rect.width > allUnits[i].x &&
-        rect.y < allUnits[i].y + allUnits[i].height &&
-        rect.y + rect.height > allUnits[i].y){
-            selectedUnits.push(this);
-            this.selected = true;
-    }
-  }
-
-  testCollision(rect){
-    if( rect.x < this.x + this.width &&
-        rect.x + rect.width > this.x &&
-        rect.y < this.y + this.height &&
-        rect.y + rect.height > this.y){
-            return true;
-    }
-    return false;
-  }
-
   testMove(){
     var hypotenuse = Math.sqrt(Math.pow((this.x - this.destX),2) + Math.pow((this.y - this.destY),2));
     var xSide = Math.abs(this.destX - this.x);
@@ -79,10 +59,23 @@ class Unit{
     this.height = rect['height'];
   }
 
-  getCoords(){
-    var coords = [];
-    coords.push(this.x);
-    coords.push(this.y);
-    return coords;
+  checkSelection(rect){
+    if( rect.x < allUnits[i].x + allUnits[i].width &&
+        rect.x + rect.width > allUnits[i].x &&
+        rect.y < allUnits[i].y + allUnits[i].height &&
+        rect.y + rect.height > allUnits[i].y){
+            selectedUnits.push(this);
+            this.selected = true;
+    }
+  }
+
+  testCollision(rect){
+    if( rect.x < this.x + this.width &&
+        rect.x + rect.width > this.x &&
+        rect.y < this.y + this.height &&
+        rect.y + rect.height > this.y){
+            return true;
+    }
+    return false;
   }
 }
