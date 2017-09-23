@@ -5,7 +5,6 @@ var selectedUnits = [];
 var mouseSelX, mouseSelY;
 var mouseX, mouseY;
 
-
 $('#myCanvas').mousedown(function(e){
   var rect = canvas.getBoundingClientRect();
   mouseSelX = e.clientX - rect.left;
@@ -48,27 +47,41 @@ $('#myCanvas').bind("contextmenu",function(e){
 });
 
 function handleUnitSelection(){
+  var mouseRect = { x: ((mouseX < mouseSelX) ? mouseX : mouseSelX),
+                    y: ((mouseY < mouseSelY) ? mouseY : mouseSelY),
+                    width: Math.abs(mouseX - mouseSelX),
+                    height: Math.abs(mouseY - mouseSelY)};
+
   for(i=0; i<allUnits.length;i++){
-    if( (allUnits[i].x < mouseSelX && allUnits[i].x > mouseX) || (allUnits[i].x < mouseX && allUnits[i].x > mouseSelX)
-        && (allUnits[i].y < mouseSelY && allUnits[i].y > mouseY) || (allUnits[i].y < mouseY && allUnits[i].y > mouseSelY)){
-          selectedUnits.push(allUnits[i]);
-          allUnits[i].selected = true;
-    }
+    allUnits[i].checkSelection(mouseRect);
   }
-  $('.test2').text(selectedUnits.length)
+}
+
+function handleUnitUpdate(){
+  for (i=0;i<allUnits.length;i++){
+    var rect = allUnits[i].testMove();
+    var collided = false;
+    for (j=0;j<allUnits.length;j++){
+      if(i!=j){
+        collided = allUnits[j].testCollision(rect);
+      }
+    }
+    if(!collided){
+      allUnits[i].setRect(rect);
+    }
+    allUnits[i].draw();
+  }
 }
 
 function init(){
   var u1 = new Unit(200,200,100,100);
+  var u2 = new Unit(400,400,20,200);
 }
 
 function main(){
   $('.test').text('main active');
   ctx.clearRect(0,0,canvas.width,canvas.height);
-  for (i=0;i<allUnits.length;i++){
-    allUnits[i].move();
-    allUnits[i].draw();
-  }
+  handleUnitUpdate()
   SelectionCursor.draw(mouseX,mouseY);
   requestAnimationFrame(main);
 }

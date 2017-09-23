@@ -4,67 +4,78 @@ class Unit{
     this.y = y;
     this.width = width;
     this.height = height;
+    this.rect = {x: this.x, y: this.y, width: this.width, height: this.height};
     this.destX;
     this.destY;
-    this.moveSpeed = 3;
+    this.moveSpeed = 5;
     this.color = "orange";
     this.selected = false;
     allUnits.push(this);
   }
 
   draw(){
-    if(this.selected == true){
-      this.color = "lightblue";
-    } else {
-      this.color = "orange";
-    }
     ctx.beginPath();
-    ctx.rect(this.x-(this.width/2),this.y-(this.height/2),this.width,this.height);
+    ctx.rect(this.x,this.y,this.width,this.height);
     ctx.fillStyle = this.color;
   	ctx.fill();
   }
 
   setMoveDest(x,y){
-    this.destX = x;
-    this.destY = y;
+    this.destX = x - (this.width/2);
+    this.destY = y - (this.height/2);
   }
 
-  move(){
-    //if the set destination is not the same as the position of the element then
-    //this should move them towards it if called upon every update loop
-    if (this.x > this.destX){
-      if((this.x - this.destX) > this.moveSpeed){
-        this.x = this.x - this.moveSpeed;
-      } else {
-        this.x = this.destX
-      }
-    } else if(this.x < this.destX){
-      if((this.x + this.destX) > this.moveSpeed){
-        this.x = this.x + this.moveSpeed;
-      } else {
-        this.x = this.destX
-      }
+  testMove(){
+    var hypotenuse = Math.sqrt(Math.pow((this.x - this.destX),2) + Math.pow((this.y - this.destY),2));
+    var xSide = Math.abs(this.destX - this.x);
+    var angle = Math.acos(xSide/hypotenuse);
+
+    var moveX = this.moveSpeed * Math.cos(angle);
+    var moveY = this.moveSpeed * Math.sin(angle);
+
+    var tempX = (this.x > this.destX) ? (this.x - moveX) : (this.x + moveX);
+    var tempY = (this.y > this.destY) ? (this.y - moveY) : (this.y + moveY);
+    var rect = {width: this.width, height: this.height};
+
+    if(Math.abs(this.destX - tempX) > moveX){
+      rect['x'] = tempX;
+    } else {
+      rect['x'] = this.x;
     }
 
-    if (this.y > this.destY){
-      if((this.y - this.destY) > this.moveSpeed){
-        this.y = this.y - this.moveSpeed;
-      } else {
-        this.y = this.destY
-      }
-    } else if(this.y < this.destY){
-      if((this.y + this.destY) > this.moveSpeed){
-        this.y = this.y + this.moveSpeed;
-      } else {
-        this.y = this.destY
-      }
+    if(Math.abs(this.destY - tempY) > moveY){
+      rect['y'] = tempY;
+    } else {
+      rect['y'] = this.y;
+    }
+    return rect;
+  }
+
+  setRect(rect){
+    this.rect = rect;
+    this.x = rect['x'];
+    this.y = rect['y'];
+    this.width = rect['width'];
+    this.height = rect['height'];
+  }
+
+  checkSelection(rect){
+    if( rect.x < allUnits[i].x + allUnits[i].width &&
+        rect.x + rect.width > allUnits[i].x &&
+        rect.y < allUnits[i].y + allUnits[i].height &&
+        rect.y + rect.height > allUnits[i].y){
+            selectedUnits.push(this);
+            this.selected = true;
     }
   }
 
-  getCoords(){
-    var coords = [];
-    coords.push(this.x);
-    coords.push(this.y);
-    return coords;
+  testCollision(rect){
+    if( rect.x < this.x + this.width &&
+        rect.x + rect.width > this.x &&
+        rect.y < this.y + this.height &&
+        rect.y + rect.height > this.y){
+            return true;
+    }
+    return false;
   }
 }
