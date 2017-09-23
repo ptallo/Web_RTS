@@ -5,7 +5,6 @@ var selectedUnits = [];
 var mouseSelX, mouseSelY;
 var mouseX, mouseY;
 
-
 $('#myCanvas').mousedown(function(e){
   var rect = canvas.getBoundingClientRect();
   mouseSelX = e.clientX - rect.left;
@@ -60,7 +59,16 @@ function handleUnitSelection(){
 
 function handleUnitUpdate(){
   for (i=0;i<allUnits.length;i++){
-    allUnits[i].move();
+    var rect = allUnits[i].testMove();
+    var collided = false;
+    for (j=0;j<allUnits.length;j++){
+      if(i!=j){
+        collided = allUnits[j].testCollision(rect);
+      }
+    }
+    if(!collided){
+      allUnits[i].setRect(rect);
+    }
     allUnits[i].draw();
   }
 }
