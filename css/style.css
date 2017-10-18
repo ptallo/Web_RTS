@@ -10,11 +10,26 @@ canvas {
   width: 60%;
 }
 
-.navBar {
+.header {
   padding: 1%;
   background-color: #229954;
-  border-bottom: 2px solid black;
+  border-bottom: 1px solid black;
   margin-bottom: 1%;
+}
+
+.navBar {
+  list-style-type: none;;
+}
+
+.navBarItem {
+  display: inline;
+  padding: 10px;
+}
+
+a:link, a:visited {
+  font-size: 20px;
+  text-decoration: none;
+  color: black;
 }
 
 button {
