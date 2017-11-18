@@ -25,7 +25,7 @@ class Unit{
     this.destY = y - (this.height/2);
   }
 
-  testMove(){
+  getMoveRect(){
     var hypotenuse = Math.sqrt(Math.pow((this.x - this.destX),2) + Math.pow((this.y - this.destY),2));
     var xSide = Math.abs(this.destX - this.x);
     var angle = Math.acos(xSide/hypotenuse);
@@ -52,6 +52,7 @@ class Unit{
   }
 
   setRect(rect){
+    //used for movement
     this.rect = rect;
     this.x = rect['x'];
     this.y = rect['y'];

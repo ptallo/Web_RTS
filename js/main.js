@@ -59,7 +59,7 @@ function handleUnitSelection(){
 
 function handleUnitUpdate(){
   for (i=0;i<allUnits.length;i++){
-    var rect = allUnits[i].testMove();
+    var rect = allUnits[i].getMoveRect();
     var collided = false;
     for (j=0;j<allUnits.length;j++){
       if(i!=j){
